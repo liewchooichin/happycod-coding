@@ -5,11 +5,21 @@ import { Form } from "react-router-dom";
 import { NavLink } from "react-router-dom";
 import { useNavigation } from "react-router-dom";
 import { useEffect } from "react";
-
+import { useSubmit } from "react-router-dom";
+import { Favorite } from "../components/Favorite"
 
 export function Root() {
   const { contacts, q } = useLoaderData();
+  // navigation.location will show up when the app is 
+  // navigating to a new URL and loading the data for it.
   const navigation = useNavigation();
+  // to start searching as the user type.
+  const submit = useSubmit();
+
+  // Showing the searching is in progress
+  const searching = 
+    navigation.location && 
+    new URLSearchParams(navigation.location.search).has("q");
 
   // To synchronize the search bar and the 
   // search input field.
@@ -19,6 +29,19 @@ export function Root() {
     document.querySelector("#q").value = q;
   }, [q])
 
+  // We can avoid this by replacing the current entry
+  // in the history stack with the next page.
+  // We only want to replace search results, not the 
+  // page before we started searching, so we do a quick
+  // check if this is the first search or not and then
+  // decide to replace.
+  function handleSearchChange(e){
+    const isFirstSearch = (q === null);
+    submit(e.currentTarget.form,
+      {replace: !isFirstSearch,}
+    )
+  }
+
   return (
     <>
       <div id="sidebar">
@@ -27,16 +50,18 @@ export function Root() {
           <Form id="search-form" role="search">
             <input
               id="q"
+              className={searching ? "loading" : ""}
               aria-label="Search contacts"
               placeholder="Search"
               type="search"
               name="q"
               defaultValue={q}
+              onChange={(e) => handleSearchChange(e)}
             />
             <div
               id="search-spinner"
               aria-hidden
-              hidden={true}
+              hidden={!searching}
             />
             <div
               className="sr-only"
@@ -69,7 +94,7 @@ export function Root() {
                   }{" "}
                   {c.favorite && <span>★</span>}
                   </Link>
-                  
+
                   </NavLink>
                 </li>
               ))}

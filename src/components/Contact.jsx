@@ -1,7 +1,17 @@
 import { Form } from "react-router-dom";
 import { useLoaderData } from "react-router-dom";
+import { Favorite } from "./Favorite";
 
 
+/**
+ * For these cases, we have the useFetcher hook. It allows us to
+ * communicate with loaders and actions without causing a navigation.
+ *
+ * The ★ button on the contact page makes sense for this. We aren't 
+ * creating or deleting a new record, we don't want to change pages, we 
+ * simply want to change the data on the page we're looking at.
+ * 
+ */
 
 export function Contact(){
   const {contact} = useLoaderData();
@@ -39,7 +49,8 @@ export function Contact(){
             </>
           ) : (
             <i>No Name</i>
-          )}
+          )} {" "}
+          <Favorite contact={contact} />
         </h1>
         
         {contact.twitter && (

@@ -1,5 +1,6 @@
 import PropTypes from "prop-types";
 import { Form } from "react-router-dom";
+import { useFetcher } from "react-router-dom";
 
 
 Favorite.propTypes = {
@@ -13,10 +14,11 @@ Favorite.propTypes = {
   })
 }
 export function Favorite({contact}){
+  const fetcher = useFetcher();
   const favorite = contact.favorite;
 
   return(
-    <Form method="post">
+    <fetcher.Form method="post">
       <button
         name="favorite"
         value={favorite ? "false" : "true"}
@@ -28,6 +30,6 @@ export function Favorite({contact}){
       >
         {favorite ? "★" : "☆"}
       </button>
-    </Form>
+    </fetcher.Form>
   )
 }
