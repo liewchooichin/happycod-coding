@@ -1,5 +1,15 @@
 # React + Vite
 
+## Configuration
+
+Using Visual Studio Code to create Static Web App:
+
+- Location of application code: **/**
+- Location of API: "" (leave it blank)
+- Location of build output: **"/dist"**
+
+## Original README 
+
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
 Currently, two official plugins are available:
