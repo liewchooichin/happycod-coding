@@ -1,8 +1,11 @@
 import { Form, useLoaderData } from "react-router-dom";
-
+import { useNavigate } from "react-router-dom";
 
 export function EditContact(){
+  // to load the contact data
   const { contact } = useLoaderData();
+  // to cancel the form
+  const navigate = useNavigate();
 
   return(
     <Form method="post" id="contact-form">
@@ -43,7 +46,12 @@ export function EditContact(){
       </label>
       <p>
         <button type="submit">Save</button>
-        <button type="button">Cancel</button>
+        <button 
+          type="button"
+          onClick={()=>{navigate(-1)}}
+        >
+          Cancel
+        </button>
       </p>
     </Form>
   ); 

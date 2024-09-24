@@ -4,23 +4,34 @@ import { useLoaderData } from "react-router-dom";
 import { Form } from "react-router-dom";
 import { NavLink } from "react-router-dom";
 import { useNavigation } from "react-router-dom";
+import { useEffect } from "react";
+
 
 export function Root() {
-  const { contacts } = useLoaderData();
+  const { contacts, q } = useLoaderData();
   const navigation = useNavigation();
+
+  // To synchronize the search bar and the 
+  // search input field.
+  // 1. Use default value in the search field.
+  // 2. Use effect to update the value.
+  useEffect(()=>{
+    document.querySelector("#q").value = q;
+  }, [q])
 
   return (
     <>
       <div id="sidebar">
         <h1>React Router Contacts</h1>
         <div>
-          <form id="search-form" role="search">
+          <Form id="search-form" role="search">
             <input
               id="q"
               aria-label="Search contacts"
               placeholder="Search"
               type="search"
               name="q"
+              defaultValue={q}
             />
             <div
               id="search-spinner"
@@ -31,7 +42,7 @@ export function Root() {
               className="sr-only"
               aria-live="polite"
             ></div>
-          </form>
+          </Form>
           <Form method="post">
             <button type="submit">New</button>
           </Form>
