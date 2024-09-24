@@ -1,5 +1,15 @@
 # Tutorial on React Router
 
+
+## Setup
+
+The following libraries are installed
+
+```
+npm install react-router-dom # always need this!
+npm install localforage match-sorter sort-by # only for this tutorial.
+```
+
 ## Getting Started
 
 [Tutorial on React Router](https://reactrouter.com/en/main/start/tutorial)
